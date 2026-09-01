@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Contact EMASUITE</title>
+    <meta name="description" content="Contact EMASUITE for a demo or consultation about your ERP needs in Tanzania and Africa." />
+    <meta name="keywords" content="EMASUITE contact, EMASUITE ERP Tanzania, EMASUITE demo, ERP consultation" />
+
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" />
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
+  </head>
+
+  <body class="starter-page-page">
+    <header id="header" class="header d-flex align-items-center sticky-top">
+      <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
+          <img src="https://ema.co.tz/uploads/logo.png" alt="EMASUITE logo" />
+          <h1 class="sitename">EMASUITE</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="{{ route('index') }}">Home</a></li>
+            <li><a href="{{ route('services') }}">Service</a></li>
+            <li><a href="{{ route('about') }}">About</a></li>
+            <li><a href="{{ route('contact') }}" class="active">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="btn-getstarted" href="{{ route('contact') }}">Get Started</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page-title" data-aos="fade">
+        <div class="container d-lg-flex justify-content-between align-items-center">
+          <h1 class="mb-2 mb-lg-0">Contact EMASUITE</h1>
+          <nav class="breadcrumbs">
+            <ol>
+              <li><a href="{{ route('index') }}">Home</a></li>
+              <li class="current">Contact</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+
+      <section id="contact" class="contact section">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Talk to our team</h2>
+          <p>We would love to hear about your business needs and recommend the right ERP solution for you.</p>
+        </div>
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row gy-4">
+            <div class="col-lg-6">
+              <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-geo-alt"></i>
+                <h3>Headquarters</h3>
+                <p>Kijitonyama, Millennium Tower Tower 2, 19th Floor, Room 1906, Dar es Salaam, Tanzania</p>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-telephone"></i>
+                <h3>Call Us</h3>
+                <p>+255 618 330 260</p>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+                <i class="bi bi-envelope"></i>
+                <h3>Email Us</h3>
+                <p>info@emasuite.co.tz</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row gy-4 mt-1">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+              <iframe src="https://www.google.com/maps?q=Dar%20es%20Salaam%2C%20Tanzania&z=12&output=embed" frameborder="0" style="border: 0; width: 100%; height: 400px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="col-lg-6">
+              <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+                <div class="row gy-4">
+                  <div class="col-md-6"><input type="text" name="name" class="form-control" placeholder="Your Name" required="" /></div>
+                  <div class="col-md-6"><input type="email" class="form-control" name="email" placeholder="Your Email" required="" /></div>
+                  <div class="col-md-12"><input type="text" class="form-control" name="subject" placeholder="Subject" required="" /></div>
+                  <div class="col-md-12"><textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea></div>
+                  <div class="col-md-12 text-center">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                    <button type="submit">Send Message</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="footer position-relative light-background">
+      <div class="container footer-top">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <a href="{{ route('index') }}" class="logo d-flex align-items-center">
+              <span class="sitename">EMA ERP</span>
+            </a>
+            <div class="footer-contact pt-3">
+              <p>Kijitonyama, Millennium Tower</p>
+              <p>Dar es Salaam, Tanzania</p>
+              <p class="mt-3"><strong>Phone:</strong> <span>+255 618 330 260</span></p>
+              <p><strong>Email:</strong> <span>info@emasuite.co.tz</span></p>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="{{ route('index') }}">Home</a></li>
+              <li><a href="{{ route('services') }}">Service</a></li>
+              <li><a href="{{ route('about') }}">About</a></li>
+              <li><a href="{{ route('contact') }}">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Focus Areas</h4>
+            <ul>
+              <li><a href="{{ route('services') }}">Logistics</a></li>
+              <li><a href="{{ route('services') }}">Retail</a></li>
+              <li><a href="{{ route('services') }}">Manufacturing</a></li>
+              <li><a href="{{ route('services') }}">Hospitality</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-12 footer-newsletter">
+            <h4>About EMA</h4>
+            <p>Cloud ERP Suite to help SMEs automate industry-specific operations for businesses across Africa.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container copyright text-center mt-4">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">EMA ERP</strong><span>All Rights Reserved</span></p>
+      </div>
+    </footer>
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+  </body>
+</html>
