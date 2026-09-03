@@ -20,6 +20,7 @@
     <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
+
   </head>
 
   <body class="index-page">
@@ -27,7 +28,7 @@
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
           <img src="https://ema.co.tz/uploads/logo.png" alt="EMASUITE logo" />
-          <h1 class="sitename">EMASUITE</h1>
+          <h1 class="sitename">{{ \App\Models\SiteSetting::get('site_name', 'EMASUITE') }}</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -40,59 +41,38 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="{{ route('contact') }}">Get Started</a>
+        <a class="btn-getstarted" href="{{ route('login') }}">{{ \App\Models\SiteSetting::get('home_primary_button_text', 'Login') }}</a>
       </div>
     </header>
 
     <main class="main">
       <section id="hero" class="hero section">
         <div class="hero-bg">
-          <img src="{{ asset('assets/img/tech.jpg') }}" alt="" />
+          <img data-cms-key="page.home.image" src="{{ $page?->image_path ? asset('storage/' . $page->image_path) : asset('assets/img/tech.jpg') }}" alt="" />
         </div>
         <div class="container text-center">
           <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1 data-aos="fade-up">ERP Software Built for <span>Africa's Growth</span></h1>
+            <h1 data-cms-key="page.home.title" data-aos="fade-up">{{ $page?->value('title') ?: \App\Models\SiteSetting::get('home_hero_title', "ERP Software Built for Africa's Growth") }}</h1>
             <p data-aos="fade-up" data-aos-delay="100">
-              Streamline and automate your operations with a cloud ERP solution designed for businesses across Tanzania and Africa.<br />
+              <span data-cms-key="page.home.intro">{{ $page?->value('intro') ?: \App\Models\SiteSetting::get('home_hero_description', 'Streamline and automate your operations with a cloud ERP solution designed for businesses across Tanzania and Africa.') }}</span><br />
             </p>
-            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="{{ route('contact') }}" class="btn-get-started">Get Started</a>
-            </div>
           </div>
         </div>
       </section>
       <section id="featured-services" class="featured-services section light-background">
         <div class="container">
           <div class="row gy-4">
-            <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
-                <div>
-                  <h4 class="title"><a href="{{ route('services') }}" class="stretched-link">Transportation & Logistics</a></h4>
-                  <p class="description">Manage fleet, routes, dispatch, tracking, and performance in one integrated platform.</p>
+            @foreach($services->take(3) as $service)
+              <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="{{ 100 * ($loop->index + 1) }}">
+                <div class="service-item d-flex">
+                  <div class="icon flex-shrink-0"><i class="{{ $service->icon }}"></i></div>
+                  <div>
+                    <h4 class="title"><a href="{{ route('services') }}" class="stretched-link">{{ $service->title }}</a></h4>
+                    <p class="description">{{ $service->description }}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-                <div>
-                  <h4 class="title"><a href="{{ route('services') }}" class="stretched-link">Warehouse Management</a></h4>
-                  <p class="description">Track inventory, reduce stock errors, and improve warehouse visibility across operations.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-item d-flex">
-                <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
-                <div>
-                  <h4 class="title"><a href="{{ route('services') }}" class="stretched-link">Accounting & Payroll</a></h4>
-                  <p class="description">Automate accounting, invoicing, payroll, and financial reporting for smarter decisions.</p>
-                </div>
-              </div>
-            </div>
+            @endforeach
           </div>
         </div>
       </section>
@@ -102,8 +82,8 @@
           <div class="row gy-4">
             <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
               <p class="who-we-are">Why EMASUITE?</p>
-              <h3>Cloud ERP suite built for smarter, leaner operations</h3>
-              <p class="fst-italic">EMASUITE helps businesses streamline operations across logistics, retail, manufacturing, education, and more using affordable, modern technology.</p>
+              <h3 data-cms-key="setting.about_title">{{ \App\Models\SiteSetting::get('about_title', 'Cloud ERP suite built for smarter, leaner operations') }}</h3>
+              <p class="fst-italic" data-cms-key="setting.about_description">{{ \App\Models\SiteSetting::get('about_description', 'EMASUITE helps businesses streamline operations across logistics, retail, manufacturing, education, and more using affordable, modern technology.') }}</p>
               <ul>
                 <li><i class="bi bi-check-circle"></i><span>Flexible modular ERP that grows with your business.</span></li>
                 <li><i class="bi bi-check-circle"></i><span>Built to suit African business realities and industry workflows.</span></li>
@@ -503,6 +483,7 @@
           </div>
         </div>
       </section>
+      <x-custom-sections :page="$page" />
     </main>
 
     <footer id="footer" class="footer position-relative light-background">
@@ -561,6 +542,7 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
+    <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>

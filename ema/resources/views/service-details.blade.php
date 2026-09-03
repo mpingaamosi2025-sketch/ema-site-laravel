@@ -26,7 +26,7 @@
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
           <img src="assets/img/logo.png" alt="" />
-          <h1 class="sitename">QuickStart</h1>
+          <h1 class="sitename">Emasuite</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -35,7 +35,7 @@
             <li><a href="{{ route('index') }}#about">About</a></li>
             <li><a href="{{ route('index') }}#features">Features</a></li>
             <li><a href="{{ route('index') }}#services">Services</a></li>
-            <li><a href="{{ route('index') }}#pricing">Pricing</a></li>
+           >
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a href="#">Dropdown 1</a></li>
@@ -121,6 +121,7 @@
           </div>
         </div>
       </section>
+      <x-custom-sections :page="$page" />
     </main>
 
     <footer id="footer" class="footer position-relative light-background">
@@ -190,6 +191,7 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
+    <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>

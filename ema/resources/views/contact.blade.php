@@ -26,7 +26,7 @@
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
           <img src="https://ema.co.tz/uploads/logo.png" alt="EMASUITE logo" />
-          <h1 class="sitename">EMASUITE</h1>
+          <h1 class="sitename">{{ \App\Models\SiteSetting::get('site_name', 'EMASUITE') }}</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -39,14 +39,14 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="{{ route('contact') }}">Get Started</a>
+        <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
       </div>
     </header>
 
     <main class="main">
       <div class="page-title" data-aos="fade">
         <div class="container d-lg-flex justify-content-between align-items-center">
-          <h1 class="mb-2 mb-lg-0">Contact EMASUITE</h1>
+          <h1 class="mb-2 mb-lg-0" data-cms-key="page.contact.title">{{ $page?->value('title') ?: 'Contact EMASUITE' }}</h1>
           <nav class="breadcrumbs">
             <ol>
               <li><a href="{{ route('index') }}">Home</a></li>
@@ -57,6 +57,7 @@
       </div>
 
       <section id="contact" class="contact section">
+        @if($page?->value('intro'))<div class="container section-title"><p data-cms-key="page.contact.intro">{{ $page->value('intro') }}</p></div>@endif
         <div class="container section-title" data-aos="fade-up">
           <h2>Talk to our team</h2>
           <p>We would love to hear about your business needs and recommend the right ERP solution for you.</p>
@@ -68,7 +69,7 @@
               <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
                 <i class="bi bi-geo-alt"></i>
                 <h3>Headquarters</h3>
-                <p>Kijitonyama, Millennium Tower Tower 2, 19th Floor, Room 1906, Dar es Salaam, Tanzania</p>
+                <p>{{ \App\Models\SiteSetting::get('contact_address', 'Kijitonyama, Millennium Tower Tower 2, 19th Floor, Room 1906, Dar es Salaam, Tanzania') }}</p>
               </div>
             </div>
 
@@ -76,7 +77,7 @@
               <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
                 <i class="bi bi-telephone"></i>
                 <h3>Call Us</h3>
-                <p>+255 618 330 260</p>
+                <p>{{ \App\Models\SiteSetting::get('contact_phone', '+255 618 330 260') }}</p>
               </div>
             </div>
 
@@ -84,7 +85,7 @@
               <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
                 <i class="bi bi-envelope"></i>
                 <h3>Email Us</h3>
-                <p>info@emasuite.co.tz</p>
+                <p>{{ \App\Models\SiteSetting::get('contact_email', 'info@emasuite.co.tz') }}</p>
               </div>
             </div>
           </div>
@@ -113,6 +114,7 @@
           </div>
         </div>
       </section>
+      <x-custom-sections :page="$page" />
     </main>
 
     <footer id="footer" class="footer position-relative light-background">
@@ -165,6 +167,7 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
+    <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>

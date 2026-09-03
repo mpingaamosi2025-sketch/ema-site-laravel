@@ -92,6 +92,7 @@
       </div>
     </section>
 
+    <x-custom-sections :page="$page" />
   </main>
 
   <footer id="footer" class="footer position-relative light-background">
@@ -165,6 +166,7 @@
 
   <div id="preloader"></div>
 
+  <x-visual-overrides :page="$page" />
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
   <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>

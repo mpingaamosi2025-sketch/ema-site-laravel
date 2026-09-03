@@ -26,7 +26,7 @@
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
           <img src="https://ema.co.tz/uploads/logo.png" alt="EMASUITE logo" />
-          <h1 class="sitename">EMASUITE</h1>
+          <h1 class="sitename">{{ \App\Models\SiteSetting::get('site_name', 'EMASUITE') }}</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -39,7 +39,7 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="{{ route('contact') }}">Get Started</a>
+        <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
       </div>
     </header>
 
@@ -58,8 +58,8 @@
 
       <section id="starter-section" class="starter-section section">
         <div class="container section-title" data-aos="fade-up">
-          <h2>Why EMASUITE?</h2>
-          <p>ERP software built for businesses to streamline and automate processes, creating a leaner, more accurate and efficient operation.</p>
+          <h2 data-cms-key="page.about.title">{{ $page?->value('title') ?: \App\Models\SiteSetting::get('about_title', 'Why EMASUITE?') }}</h2>
+          <p data-cms-key="page.about.intro">{{ $page?->value('intro') ?: \App\Models\SiteSetting::get('about_description', 'ERP software built for businesses to streamline and automate processes, creating a leaner, more accurate and efficient operation.') }}</p>
         </div>
 
         <div class="container" data-aos="fade-up">
@@ -68,8 +68,8 @@
               <img src="{{ asset('assets/img/services.jpg') }}" class="img-fluid rounded" alt="EMASUITE ERP" />
             </div>
             <div class="col-lg-6">
-              <p>EMA is an enterprise resource planning solution designed to help small and medium-sized businesses automate industry-specific operations using cloud-based business systems.</p>
-              <p>We have designed EMA ERP to be modular, flexible, and cost-effective so you can deploy only what you need upfront and add functionality as your business grows.</p>
+              <p data-cms-key="setting.about_mission">{{ $page?->value('body') ?: \App\Models\SiteSetting::get('about_mission', 'EMA is an enterprise resource planning solution designed to help small and medium-sized businesses automate industry-specific operations using cloud-based business systems.') }}</p>
+              <p>{{ \App\Models\SiteSetting::get('about_vision', 'We have designed EMA ERP to be modular, flexible, and cost-effective so you can deploy only what you need upfront and add functionality as your business grows.') }}</p>
               <p>Our goal is for customers to realize ROI quickly through secure, scalable systems built to match African business realities.</p>
             </div>
           </div>
@@ -81,7 +81,7 @@
           <div class="row gy-4">
             <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
               <p class="who-we-are">Our Vision</p>
-              <h3>To help African businesses grow with digital innovation</h3>
+              <h3>{{ \App\Models\SiteSetting::get('about_mission', 'To help African businesses grow with digital innovation') }}</h3>
               <p class="fst-italic">EMA gives organizations the tools to manage their people, inventory, operations, and business intelligence with confidence.</p>
               <ul>
                 <li><i class="bi bi-check-circle"></i><span>Built for Africa's operational and economic environment.</span></li>
@@ -103,6 +103,7 @@
           </div>
         </div>
       </section>
+      <x-custom-sections :page="$page" />
     </main>
 
     <footer id="footer" class="footer position-relative light-background">
@@ -113,10 +114,10 @@
               <span class="sitename">EMASUITE</span>
             </a>
             <div class="footer-contact pt-3">
-              <p>Kijitonyama, Millennium Tower</p>
+              <p>{{ \App\Models\SiteSetting::get('contact_address', 'Kijitonyama, Millennium Tower') }}</p>
               <p>Dar es Salaam, Tanzania</p>
-              <p class="mt-3"><strong>Phone:</strong> <span>+255 618 330 260</span></p>
-              <p><strong>Email:</strong> <span>info@emasuite.co.tz</span></p>
+              <p class="mt-3"><strong>Phone:</strong> <span>{{ \App\Models\SiteSetting::get('contact_phone', '+255 618 330 260') }}</span></p>
+              <p><strong>Email:</strong> <span>{{ \App\Models\SiteSetting::get('contact_email', 'info@emasuite.co.tz') }}</span></p>
             </div>
           </div>
 
@@ -142,19 +143,20 @@
 
           <div class="col-lg-4 col-md-12 footer-newsletter">
             <h4>About EMA</h4>
-            <p>Cloud ERP Suite to help SMEs automate industry-specific operations for businesses across Africa.</p>
+            <p>{{ \App\Models\SiteSetting::get('footer_description', 'Cloud ERP Suite to help SMEs automate industry-specific operations for businesses across Africa.') }}</p>
           </div>
         </div>
       </div>
 
       <div class="container copyright text-center mt-4">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">EMA ERP</strong><span>All Rights Reserved</span></p>
+        <p>{{ \App\Models\SiteSetting::get('footer_copyright', '© Copyright EMA ERP All Rights Reserved') }}</p>
       </div>
     </footer>
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
+    <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>

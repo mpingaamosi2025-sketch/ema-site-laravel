@@ -26,7 +26,7 @@
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
           <img src="https://ema.co.tz/uploads/logo.png" alt="EMA ERP logo" />
-          <h1 class="sitename">EMASUITE</h1>
+          <h1 class="sitename">{{ \App\Models\SiteSetting::get('site_name', 'EMASUITE') }}</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -39,14 +39,14 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="{{ route('contact') }}">Get Started</a>
+        <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
       </div>
     </header>
 
     <main class="main">
       <div class="page-title" data-aos="fade">
         <div class="container d-lg-flex justify-content-between align-items-center">
-          <h1 class="mb-2 mb-lg-0">Our Services</h1>
+          <h1 class="mb-2 mb-lg-0" data-cms-key="page.services.title">{{ $page?->value('title') ?: 'Our Services' }}</h1>
           <nav class="breadcrumbs">
             <ol>
               <li><a href="{{ route('index') }}">Home</a></li>
@@ -57,109 +57,25 @@
       </div>
 
       <section id="services" class="services section light-background">
-        <div class="container">
+          <div class="container">
+            @if($page?->value('intro'))<p class="text-center mb-5" data-cms-key="page.services.intro">{{ $page->value('intro') }}</p>@endif
           <div class="row g-5">
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-item item-cyan position-relative">
-                <i class="bi bi-truck icon"></i>
-                <div>
-                  <h3>Transportation & Logistics</h3>
-                  <p>EMASUITE Transportation Management (ETM) offers a comprehensive platform for businesses to seamlessly oversee all transportation aspects of their supply chains.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
+            @foreach($services as $service)
+              <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ 100 * ($loop->index + 1) }}">
+                <div class="service-item item-cyan position-relative">
+                  <i class="{{ $service->icon }} icon"></i>
+                  <div>
+                    <h3>{{ $service->title }}</h3>
+                    <p>{{ $service->description }}</p>
+                    <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-item item-orange position-relative">
-                <i class="bi bi-send icon"></i>
-                <div>
-                  <h3>Courier Services</h3>
-                  <p>Courier Services Management Software, Delivery Management Software, ERP for courier companies and distribution industries.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-item item-teal position-relative">
-                <i class="bi bi-shop icon"></i>
-                <div>
-                  <h3>Restaurant & Hospitality</h3>
-                  <p>Manage orders, inventory, reservations, billing, and operations in fast-paced hospitality environments.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-              <div class="service-item item-red position-relative">
-                <i class="bi bi-box-seam icon"></i>
-                <div>
-                  <h3>Warehouse Management</h3>
-                  <p>The best warehouse management system for businesses that need visibility, control, and efficiency across operations.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
-              <div class="service-item item-indigo position-relative">
-                <i class="bi bi-file-earmark-text icon"></i>
-                <div>
-                  <h3>Clearing & Forwarding</h3>
-                  <p>Automate freight forwarding activities, documentation, tracking, and operational workflows with lower costs and fewer errors.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
-              <div class="service-item item-pink position-relative">
-                <i class="bi bi-cpu icon"></i>
-                <div>
-                  <h3>Manufacturing</h3>
-                  <p>Get customizable manufacturing software based on your specific requirements and business processes.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="700">
-              <div class="service-item item-cyan position-relative">
-                <i class="bi bi-mortarboard icon"></i>
-                <div>
-                  <h3>Education</h3>
-                  <p>School ERP and college ERP software with e-learning, attendance, payroll, and academic workflow automation.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="800">
-              <div class="service-item item-orange position-relative">
-                <i class="bi bi-shield-check icon"></i>
-                <div>
-                  <h3>Insurance</h3>
-                  <p>Advanced insurance software designed for professionals, agents, and brokers with powerful process automation.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="900">
-              <div class="service-item item-green position-relative">
-                <i class="bi bi-bag icon"></i>
-                <div>
-                  <h3>Retail</h3>
-                  <p>End-to-end retail operations covering inventory, ecommerce, POS, CRM, financials, and business intelligence.</p>
-                  <a href="{{ route('contact') }}" class="read-more stretched-link">Get Started <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
+            @endforeach
           </div>
         </div>
       </section>
+      <x-custom-sections :page="$page" />
     </main>
 
     <footer id="footer" class="footer position-relative light-background">
@@ -212,6 +128,7 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
+    <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
