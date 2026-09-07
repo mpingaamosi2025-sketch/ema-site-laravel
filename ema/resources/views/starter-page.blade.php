@@ -60,7 +60,7 @@
           </li>
           <li><a href="{{ route('index') }}#contact">Contact</a></li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="mobile-nav-toggle d-md-none bi bi-list" role="button" aria-label="Open navigation" tabindex="0"></i>
       </nav>
 
       <a class="btn-getstarted" href="{{ route('index') }}#about">Get Started</a>
@@ -164,7 +164,7 @@
 
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <div id="preloader"></div>
+  <div id="preloader"><span>EMASUITE</span></div>
 
   <x-visual-overrides :page="$page" />
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

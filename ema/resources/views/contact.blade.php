@@ -21,7 +21,7 @@
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
   </head>
 
-  <body class="starter-page-page">
+  <body class="starter-page-page contact-page">
     <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
@@ -36,7 +36,7 @@
             <li><a href="{{ route('about') }}">About</a></li>
             <li><a href="{{ route('contact') }}" class="active">Contact</a></li>
           </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          <i class="mobile-nav-toggle d-md-none bi bi-list" role="button" aria-label="Open navigation" tabindex="0"></i>
         </nav>
 
         <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
@@ -69,7 +69,7 @@
               <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
                 <i class="bi bi-geo-alt"></i>
                 <h3>Headquarters</h3>
-                <p>{{ \App\Models\SiteSetting::get('contact_address', 'Kijitonyama, Millennium Tower Tower 2, 19th Floor, Room 1906, Dar es Salaam, Tanzania') }}</p>
+                <p>{{ \App\Models\SiteSetting::get('contact_address', 'HEADQUARTERS: TANZANIA OFFICE, Kijitonyama, Millenium Tower Tower 2, 19th Floor, Room 1906, Dar es Salaam, Tanzania. GLOBAL HQ OFFICE: EMASUITE INC., Delaware, USA (@The Green, Ste A, Dover, DE 19901)') }}</p>
               </div>
             </div>
 
@@ -165,7 +165,7 @@
     </footer>
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <div id="preloader"></div>
+    <div id="preloader"><span>EMASUITE</span></div>
 
     <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

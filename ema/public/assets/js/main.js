@@ -123,6 +123,8 @@
    */
   function initSwiper() {
     document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+      if (swiperElement.classList.contains('swiper-initialized')) return;
+
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -135,7 +137,11 @@
     });
   }
 
-  window.addEventListener("load", initSwiper);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSwiper, { once: true });
+  } else {
+    initSwiper();
+  }
 
   /**
    * Correct scrolling position upon page load for URLs containing hash links.

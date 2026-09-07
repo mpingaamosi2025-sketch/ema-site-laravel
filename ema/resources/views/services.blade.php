@@ -7,7 +7,7 @@
     <meta name="description" content="EMA ERP services for logistics, manufacturing, retail, hospitality, education, insurance and more." />
     <meta name="keywords" content="EMA, EMASUITE, ERP services, logistics software, retail software, manufacturing software" />
 
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" />
+    <link href="{{ asset('assets/img/favicon.png')}}" rel="icon" />
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon" />
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
@@ -21,7 +21,7 @@
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
   </head>
 
-  <body class="service-details-page">
+  <body class="service-details-page services-page">
     <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
@@ -36,7 +36,7 @@
             <li><a href="{{ route('about') }}">About</a></li>
             <li><a href="{{ route('contact') }}">Contact</a></li>
           </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          <i class="mobile-nav-toggle d-md-none bi bi-list" role="button" aria-label="Open navigation" tabindex="0"></i>
         </nav>
 
         <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
@@ -46,7 +46,7 @@
     <main class="main">
       <div class="page-title" data-aos="fade">
         <div class="container d-lg-flex justify-content-between align-items-center">
-          <h1 class="mb-2 mb-lg-0" data-cms-key="page.services.title">{{ $page?->value('title') ?: 'Our Services' }}</h1>
+          <h1 class="mb-2 mb-lg-0" data-cms-key="page.services.title">{{ $page?->value('title') ?: 'Focus Industries' }}</h1>
           <nav class="breadcrumbs">
             <ol>
               <li><a href="{{ route('index') }}">Home</a></li>
@@ -126,7 +126,7 @@
     </footer>
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <div id="preloader"></div>
+    <div id="preloader"><span>EMASUITE</span></div>
 
     <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

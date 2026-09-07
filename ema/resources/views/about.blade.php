@@ -21,7 +21,7 @@
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
   </head>
 
-  <body class="starter-page-page">
+  <body class="starter-page-page about-page">
     <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container-fluid container-xl position-relative d-flex align-items-center">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center me-auto">
@@ -36,7 +36,7 @@
             <li><a href="{{ route('about') }}" class="active">About</a></li>
             <li><a href="{{ route('contact') }}">Contact</a></li>
           </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          <i class="mobile-nav-toggle d-md-none bi bi-list" role="button" aria-label="Open navigation" tabindex="0"></i>
         </nav>
 
         <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
@@ -58,8 +58,8 @@
 
       <section id="starter-section" class="starter-section section">
         <div class="container section-title" data-aos="fade-up">
-          <h2 data-cms-key="page.about.title">{{ $page?->value('title') ?: \App\Models\SiteSetting::get('about_title', 'Why EMASUITE?') }}</h2>
-          <p data-cms-key="page.about.intro">{{ $page?->value('intro') ?: \App\Models\SiteSetting::get('about_description', 'ERP software built for businesses to streamline and automate processes, creating a leaner, more accurate and efficient operation.') }}</p>
+          <h2 data-cms-key="page.about.title">{{ $page?->value('title') ?: \App\Models\SiteSetting::get('about_title', 'EMASUITE - Enterprise Management and Automation') }}</h2>
+          <p data-cms-key="page.about.intro">{{ $page?->value('intro') ?: \App\Models\SiteSetting::get('about_description', 'EMASUITE is Africa enterprise application software, helping companies of all sizes and in all industries run at their best on one cloud platform.') }}</p>
         </div>
 
         <div class="container" data-aos="fade-up">
@@ -68,8 +68,8 @@
               <img src="{{ asset('assets/img/services.jpg') }}" class="img-fluid rounded" alt="EMASUITE ERP" />
             </div>
             <div class="col-lg-6">
-              <p data-cms-key="setting.about_mission">{{ $page?->value('body') ?: \App\Models\SiteSetting::get('about_mission', 'EMA is an enterprise resource planning solution designed to help small and medium-sized businesses automate industry-specific operations using cloud-based business systems.') }}</p>
-              <p>{{ \App\Models\SiteSetting::get('about_vision', 'We have designed EMA ERP to be modular, flexible, and cost-effective so you can deploy only what you need upfront and add functionality as your business grows.') }}</p>
+              <p data-cms-key="setting.about_mission">{{ $page?->value('body') ?: \App\Models\SiteSetting::get('about_mission', 'To help Enterprises and their Subsidiaries transition to a modern, data-driven and productive workplace, at the country and international level.') }}</p>
+              <p>{{ \App\Models\SiteSetting::get('about_vision', 'To become Africa leading intelligence enterprise by helping businesses harness their data faster and more effectively.') }}</p>
               <p>Our goal is for customers to realize ROI quickly through secure, scalable systems built to match African business realities.</p>
             </div>
           </div>
@@ -154,7 +154,7 @@
     </footer>
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <div id="preloader"></div>
+    <div id="preloader"><span>EMASUITE</span></div>
 
     <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

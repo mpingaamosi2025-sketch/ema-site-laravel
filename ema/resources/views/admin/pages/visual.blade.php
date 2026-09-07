@@ -15,9 +15,13 @@
             <div id="editor-properties" class="d-none">
                 <label for="element-value" class="form-label">Text</label>
                 <textarea id="element-value" class="form-control" rows="6"></textarea>
+                <div id="element-placeholder-group" class="d-none">
+                    <label for="element-placeholder" class="form-label">Placeholder</label>
+                    <input id="element-placeholder" class="form-control" type="text">
+                </div>
                 <label for="element-image" class="form-label d-none mt-2">Image</label>
                 <input id="element-image" class="form-control d-none" type="file" accept="image/jpeg,image/png,image/webp">
-                <div class="row g-2 mt-1">
+                <div id="element-style-controls" class="row g-2 mt-1">
                     <div class="col-6"><label for="background-color" class="form-label">Background</label><input id="background-color" class="form-control form-control-color w-100" type="color" value="#ffffff"></div>
                     <div class="col-6"><label for="text-color" class="form-label">Text color</label><input id="text-color" class="form-control form-control-color w-100" type="color" value="#000000"></div>
                 </div>
@@ -42,6 +46,9 @@
         const emptyProperties = document.getElementById('empty-properties');
         const editorProperties = document.getElementById('editor-properties');
         const elementValue = document.getElementById('element-value');
+        const elementPlaceholderGroup = document.getElementById('element-placeholder-group');
+        const elementPlaceholder = document.getElementById('element-placeholder');
+        const elementStyleControls = document.getElementById('element-style-controls');
         const saveButton = document.getElementById('save-element');
         const saveStatus = document.getElementById('save-status');
         const backgroundColor = document.getElementById('background-color');
@@ -115,6 +122,8 @@
                     selectedElement.classList.add('selected-element');
                     if (!selectedElement.dataset.cmsKey) selectedElement.dataset.visualSelector = elementSelector(selectedElement);
                     elementValue.value = selectedElement.textContent.trim();
+                    const isInput = selectedElement.matches('input, textarea');
+                    elementPlaceholder.value = selectedElement.getAttribute('placeholder') || '';
                     const colors = getComputedStyle(selectedElement);
                     const toHex = (value, fallback) => {
                         const channels = value.match(/\d+/g)?.slice(0, 3);
@@ -129,7 +138,10 @@
                     document.getElementById('element-image').classList.toggle('d-none', selectedElement.tagName !== 'IMG');
                     document.querySelector('label[for="element-image"]').classList.toggle('d-none', selectedElement.tagName !== 'IMG');
                     elementValue.classList.toggle('d-none', selectedElement.tagName === 'IMG');
-                    document.querySelector('label[for="element-value"]').classList.toggle('d-none', selectedElement.tagName === 'IMG');
+                    document.querySelector('label[for="element-value"]').classList.toggle('d-none', selectedElement.tagName === 'IMG' || isInput);
+                    elementValue.classList.toggle('d-none', selectedElement.tagName === 'IMG' || isInput);
+                    elementPlaceholderGroup.classList.toggle('d-none', !isInput);
+                    elementStyleControls.classList.toggle('d-none', isInput);
                     emptyProperties.classList.add('d-none');
                     editorProperties.classList.remove('d-none');
                     saveStatus.textContent = '';
@@ -168,9 +180,13 @@
             if (selectedElement) {
                 formData.append('action', 'override-element');
                 formData.append('selector', selectedElement.dataset.visualSelector || elementSelector(selectedElement));
-                formData.append('text', elementValue.value);
-                formData.append('background_color', backgroundColor.value);
-                formData.append('text_color', textColor.value);
+                if (selectedElement.matches('input, textarea')) {
+                    formData.append('placeholder', elementPlaceholder.value);
+                } else {
+                    formData.append('text', elementValue.value);
+                    formData.append('background_color', backgroundColor.value);
+                    formData.append('text_color', textColor.value);
+                }
                 if (selectedElement.tagName === 'IMG' && document.getElementById('element-image').files[0]) formData.append('image', document.getElementById('element-image').files[0]);
                 const response = await fetch('{{ route('admin.pages.visual.update', $page) }}', {
                     method: 'POST',

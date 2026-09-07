@@ -14,6 +14,9 @@ Route::get('/index.html', [PageController::class, 'index']);
 Route::get('/login', [PageController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/forgotpassword', [PageController::class, 'forgotPassword'])->name('forgotpassword');
+Route::post('/forgotpassword', [AuthController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/services.html', [PageController::class, 'services']);

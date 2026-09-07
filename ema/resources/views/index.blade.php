@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
@@ -38,7 +38,7 @@
             <li><a href="{{ route('about') }}">About</a></li>
             <li><a href="{{ route('contact') }}">Contact</a></li>
           </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          <i class="mobile-nav-toggle d-md-none bi bi-list" role="button" aria-label="Open navigation" tabindex="0"></i>
         </nav>
 
         <a class="btn-getstarted" href="{{ route('login') }}">{{ \App\Models\SiteSetting::get('home_primary_button_text', 'Login') }}</a>
@@ -48,32 +48,44 @@
     <main class="main">
       <section id="hero" class="hero section">
         <div class="hero-bg">
-          <img data-cms-key="page.home.image" src="{{ $page?->image_path ? asset('storage/' . $page->image_path) : asset('assets/img/tech.jpg') }}" alt="" />
+          <img id="hero-service-image" data-cms-key="page.home.image" src="{{ asset('assets/img/logistic.jpg') }}" alt="EMA Fleet and logistics software" />
         </div>
-        <div class="container text-center">
-          <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1 data-cms-key="page.home.title" data-aos="fade-up">{{ $page?->value('title') ?: \App\Models\SiteSetting::get('home_hero_title', "ERP Software Built for Africa's Growth") }}</h1>
-            <p data-aos="fade-up" data-aos-delay="100">
-              <span data-cms-key="page.home.intro">{{ $page?->value('intro') ?: \App\Models\SiteSetting::get('home_hero_description', 'Streamline and automate your operations with a cloud ERP solution designed for businesses across Tanzania and Africa.') }}</span><br />
+        <div class="container">
+          <div class="hero-content">
+            <p class="hero-service-label" data-aos="fade-up">EMA SOFTWARE SOLUTIONS</p>
+            <h1 id="hero-service-title" data-cms-key="page.home.title" data-aos="fade-up">{{ \App\Models\SiteSetting::get('home_hero_title', 'ERP Software Built for You') }}</h1>
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="100">
+              <span id="hero-service-description" data-cms-key="page.home.intro">{{ \App\Models\SiteSetting::get('home_hero_description', 'Streamline and automate processes, creating a leaner, more accurate and efficient operation.') }}</span><br />
             </p>
+            <div class="hero-actions" data-aos="fade-up" data-aos-delay="200">
+              <a href="{{ route('services') }}" class="btn-get-started">Explore Solutions <i class="bi bi-arrow-right"></i></a>
+              <a href="{{ route('contact') }}" class="btn-hero-secondary">Request a Demo</a>
+            </div>
+            <div class="hero-trust" data-aos="fade-up" data-aos-delay="300"><i class="bi bi-shield-check"></i><span>Reliable. Secure. Scalable.</span></div>
           </div>
         </div>
       </section>
       <section id="featured-services" class="featured-services section light-background">
         <div class="container">
+          <div class="section-title" data-aos="fade-up">
+            <p class="eyebrow">OUR SOLUTIONS</p>
+            <h2>Powerful solutions for every business</h2>
+          </div>
           <div class="row gy-4">
-            @foreach($services->take(3) as $service)
-              <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="{{ 100 * ($loop->index + 1) }}">
-                <div class="service-item d-flex">
-                  <div class="icon flex-shrink-0"><i class="{{ $service->icon }}"></i></div>
+            @foreach($services->take(4) as $service)
+              <div class="col-xl-3 col-lg-6" data-aos="fade-up" data-aos-delay="{{ 100 * ($loop->index + 1) }}">
+                <div class="service-item">
+                  <div class="icon"><i class="{{ $service->icon }}"></i></div>
                   <div>
                     <h4 class="title"><a href="{{ route('services') }}" class="stretched-link">{{ $service->title }}</a></h4>
                     <p class="description">{{ $service->description }}</p>
+                    <span class="solution-link">Get Started <i class="bi bi-arrow-right"></i></span>
                   </div>
                 </div>
               </div>
             @endforeach
           </div>
+          <div class="text-center mt-5" data-aos="fade-up"><a href="{{ route('services') }}" class="btn-hero-secondary">View All Services <i class="bi bi-arrow-right"></i></a></div>
         </div>
       </section>
 
@@ -81,7 +93,7 @@
         <div class="container">
           <div class="row gy-4">
             <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-              <p class="who-we-are">Why EMASUITE?</p>
+              <p class="who-we-are">WHY EMASUITE?</p>
               <h3 data-cms-key="setting.about_title">{{ \App\Models\SiteSetting::get('about_title', 'Cloud ERP suite built for smarter, leaner operations') }}</h3>
               <p class="fst-italic" data-cms-key="setting.about_description">{{ \App\Models\SiteSetting::get('about_description', 'EMASUITE helps businesses streamline operations across logistics, retail, manufacturing, education, and more using affordable, modern technology.') }}</p>
               <ul>
@@ -93,22 +105,22 @@
             </div>
 
             <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
-                <div class="col-lg-6">
-                  <img src="{{ asset('assets/img/whyema.jpg') }}" class="img-fluid" alt="" />
-                </div>
-                <div class="col-lg-6">
-                  <div class="row gy-4">
-                    <div class="col-lg-12">
-                      <img src="{{ asset('assets/img/hospitality.jpg') }}" class="img-fluid" alt="" />
-                    </div>
-                    <div class="col-lg-12">
-                      <img src="{{ asset('assets/img/manufacturing.jpg') }}" class="img-fluid" alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img src="{{ asset('assets/img/erp.jpg') }}" class="img-fluid" alt="EMA business management dashboard" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="index-cta section">
+        <div class="container">
+          <div class="index-cta-inner" data-aos="fade-up">
+            <div class="index-cta-icon"><i class="bi bi-headset"></i></div>
+            <div>
+              <p class="eyebrow">READY TO TRANSFORM YOUR BUSINESS?</p>
+              <h2>Let's build the right solution for you.</h2>
+              <p>Talk to our experts and discover how EMASUITE can help your business grow.</p>
+            </div>
+            <a href="{{ route('contact') }}" class="btn-get-started">Request a Demo <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </section>
@@ -386,7 +398,7 @@
             </script>
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <div class="testimonial-item">
+                <div class="testimonial-item" data-aos="fade-right" data-aos-delay="100">
                   <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
                   <p>EMA helped us simplify our operations and gain better visibility across inventory, sales, and daily business performance.</p>
                   <div class="profile mt-auto">
@@ -398,7 +410,7 @@
               </div>
 
               <div class="swiper-slide">
-                <div class="testimonial-item">
+                <div class="testimonial-item" data-aos="fade-right" data-aos-delay="200">
                   <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
                   <p>The flexibility of the platform made it easier for our team to adopt and scale the system as the business evolved.</p>
                   <div class="profile mt-auto">
@@ -410,7 +422,7 @@
               </div>
 
               <div class="swiper-slide">
-                <div class="testimonial-item">
+                <div class="testimonial-item" data-aos="fade-right" data-aos-delay="300">
                   <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
                   <p>We were able to automate several processes without losing control over our service quality or reporting needs.</p>
                   <div class="profile mt-auto">
@@ -540,7 +552,7 @@
     </footer>
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <div id="preloader"></div>
+    <div id="preloader"><span>EMASUITE</span></div>
 
     <x-visual-overrides :page="$page" />
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -549,5 +561,60 @@
     <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+      (() =>{
+        const image = document.getElementById('hero-service-image');
+        const title = document.getElementById('hero-service-title');
+        const description = document.getElementById('hero-service-description');
+        if (!image || !title || !description) return;
+
+        const services = [
+          {
+            title: 'EMA Fleet & Logistics',
+            description: 'Manage trucks, cargo movements, fuel, maintenance, and delivery operations in one connected platform.',
+            image: @json(asset('assets/img/logistic.jpg'))
+          },
+          {
+            title: 'EMA Warehouse',
+            description: 'Control receiving, stock movement, dispatch, and inventory accuracy with real-time warehouse visibility.',
+            image: @json(asset('assets/img/industries.png'))
+          },
+          {
+            title: 'EMA Accounting',
+            description: 'Track bills, invoices, payments, and financial reports with accounting tools built for growing businesses.',
+            image: @json(asset('assets/img/fastroi.jpg'))
+          },
+          {
+            title: 'EMA Inventory',
+            description: 'Gain full control of goods across stores and supply networks while improving service levels and working capital.',
+            image: @json(asset('assets/img/business.jpg'))
+          },
+          {
+            title: 'EMA HR & Payroll',
+            description: 'Automate employee earnings, deductions, attendance, and statutory payroll reporting for your team.',
+            image: @json(asset('assets/img/hrsoftware.jpg'))
+          }
+        ];
+        let activeService = 0;
+
+        window.setInterval(() => {
+          activeService = (activeService + 1) % services.length;
+          const service = services[activeService];
+          image.classList.add('is-changing');
+          title.classList.add('is-changing');
+          description.classList.add('is-changing');
+
+          window.setTimeout(() => {
+            image.src = service.image;
+            image.alt = service.title;
+            title.textContent = service.title;
+            description.textContent = service.description;
+            image.classList.remove('is-changing');
+            title.classList.remove('is-changing');
+            description.classList.remove('is-changing');
+          }, 260);
+        }, 5000);
+      })();
+    </script>
   </body>
 </html>

@@ -100,6 +100,107 @@
                 position: relative;
             }
         }
+
+        :root {
+            --admin-ink: #123f50;
+            --admin-teal: #388da8;
+            --admin-cyan: #77b6ca;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, rgba(119, 182, 202, .16), transparent 34%), #f4f9fa;
+            font-family: "Manrope", "Segoe UI", sans-serif;
+        }
+
+        .sidebar {
+            background: linear-gradient(160deg, #0d3b4f, #145d70 70%, #1b7f95);
+            padding: 1.25rem !important;
+            box-shadow: 12px 0 32px rgba(13, 59, 79, .12);
+        }
+
+        .sidebar>div:first-child {
+            padding: .8rem !important;
+            border-bottom: 1px solid rgba(255, 255, 255, .14);
+        }
+
+        .sidebar .nav-link {
+            padding: .75rem .85rem;
+            margin: .22rem 0;
+            font-weight: 600;
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .sidebar .nav-link i {
+            width: 22px;
+            color: var(--admin-cyan);
+        }
+
+        .sidebar .nav-link:hover {
+            transform: translateX(3px);
+        }
+
+        .sidebar .nav-link.active {
+            background: rgba(255, 255, 255, .16);
+            box-shadow: inset 3px 0 var(--admin-cyan);
+        }
+
+        .content-area {
+            padding: clamp(1rem, 3vw, 2.5rem);
+        }
+
+        .topbar {
+            min-height: 68px;
+            border: 1px solid rgba(56, 141, 168, .14);
+            box-shadow: 0 14px 32px rgba(13, 59, 79, .07);
+        }
+
+        .topbar h2 {
+            color: var(--admin-ink);
+            font-weight: 800;
+        }
+
+        .card {
+            border: 1px solid rgba(56, 141, 168, .14);
+            box-shadow: 0 12px 28px rgba(13, 59, 79, .06);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(13, 59, 79, .1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--admin-ink), var(--admin-teal));
+            border: 0;
+            border-radius: 9px;
+            box-shadow: 0 8px 18px rgba(13, 59, 79, .16);
+            font-weight: 700;
+        }
+
+        .form-control {
+            border: 1px solid rgba(56, 141, 168, .22);
+            border-radius: 9px;
+        }
+
+        .form-control:focus {
+            border-color: var(--admin-teal);
+            box-shadow: 0 0 0 .2rem rgba(56, 141, 168, .14);
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                box-shadow: none;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .topbar {
+                margin-top: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -144,7 +245,7 @@
                 </div>
 
                 @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                    <div class="alert alert-success session-flash">{{ session('success') }}</div>
                 @endif
 
                 <div class="row g-4 mb-4">
@@ -262,4 +363,12 @@
     </div>
 </body>
 
+    <script>
+        window.setTimeout(() => {
+            document.querySelectorAll('.session-flash').forEach((message) => {
+                message.classList.add('is-dismissing');
+                window.setTimeout(() => message.remove(), 350);
+            });
+        }, 3000);
+    </script>
 </html>

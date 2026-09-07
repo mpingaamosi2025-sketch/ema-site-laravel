@@ -7,17 +7,25 @@
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
     <style>
-        body { background: linear-gradient(135deg, #0d3b4f, #1b7f95); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; }
-        .login-card { width: min(100%, 920px); background: rgba(255,255,255,0.96); border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.22); overflow: hidden; }
+        :root { --button-background: linear-gradient(135deg, #0d3b4f, #1b7f95); --button-background-hover: linear-gradient(135deg, #0b2f3f, #166d88); }
+        body { background: linear-gradient(135deg, rgba(16, 76, 100, 0.95), rgba(24, 120, 143, 0.9)); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; }
+        .login-card { width: min(100%, 920px); background: linear-gradient(135deg, #0d3b4f, #15566a); border-radius: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.18); overflow: hidden; }
         .login-panel { padding: 3rem; }
         .brand { display:flex; align-items:center; gap:12px; margin-bottom: 1.5rem; }
         .brand img { width: 44px; height: 44px; }
-        .brand span { font-size: 1.3rem; font-weight: 700; color: #0d3b4f; }
-        .btn-primary { background: linear-gradient(135deg, #0d3b4f, #1b7f95); border:none; }
+        .brand span { font-size: 1.3rem; font-weight: 700; color: #ffffff; }
+        .btn-primary { background: var(--button-background); border:none; }
         .info-panel { background: linear-gradient(145deg, #0d3b4f, #186f88); color: #fff; padding: 3rem 2rem; }
         .info-panel ul { list-style: none; padding: 0; margin-top: 2rem; }
         .info-panel li { margin-bottom: 0.9rem; color: rgba(255,255,255,0.9); }
-        .form-control { min-height: 52px; border-radius: 12px; }
+        .login-panel { background: rgba(13, 59, 79, 0.7); }
+        .form-control { min-height: 52px; border-radius: 12px; border-color: rgba(255, 255, 255, 0.3); background-color: #11495d; color: #ffffff; }
+        .form-control:focus { border-color: #0d3b4f; background-color: #11495d; color: #ffffff; box-shadow: 0 0 0 .2rem rgba(13, 59, 79, 0.12); }
+        .form-control::placeholder { color: rgba(255, 255, 255, 0.72); }
+        .login-card { border: 1px solid rgba(255,255,255,.18); }
+        .login-panel h2, .login-panel label, .login-panel .form-check-label { color: #ffffff; }
+        .btn-primary:hover { background: var(--button-background-hover); }
+        .btn-primary { border-radius: 10px; padding: .8rem 1rem; font-weight: 700; box-shadow: 0 10px 22px rgba(13,59,79,.16); }
     </style>
 </head>
 <body>

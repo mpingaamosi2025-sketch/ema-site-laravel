@@ -39,7 +39,7 @@
       }
 
       .login-card {
-        background: rgba(255, 255, 255, 0.96);
+        background: linear-gradient(135deg, #0d3b4f, #15566a);
         border-radius: 20px;
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
         overflow: hidden;
@@ -85,6 +85,7 @@
 
       .login-right {
         padding: 50px 40px;
+        background: rgba(13, 59, 79, 0.7);
       }
 
       .brand {
@@ -103,24 +104,26 @@
       .brand span {
         font-size: 1.3rem;
         font-weight: 700;
-        color: #0d3b4f;
+        color: #ffffff;
       }
 
       .login-title {
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 8px;
-        color: #0d3b4f;
+        color: #ffffff;
       }
 
       .login-subtitle {
-        color: #5d6d7d;
+        color: rgba(255, 255, 255, 0.82);
         margin-bottom: 28px;
       }
 
       .form-control {
         border-radius: 12px;
-        border: 1px solid #dfe7ee;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(13, 59, 79, 0.72);
+        color: #ffffff;
         padding: 0.9rem 1rem;
         min-height: 52px;
       }
@@ -130,29 +133,52 @@
         box-shadow: 0 0 0 0.2rem rgba(13, 59, 79, 0.12);
       }
 
+      .login-page input.form-control,
+      .login-page input.form-control:focus,
+      .login-page input.form-control:-webkit-autofill,
+      .login-page input.form-control:-webkit-autofill:hover,
+      .login-page input.form-control:-webkit-autofill:focus {
+        background: #0d3b4f !important;
+        background-color: #0d3b4f !important;
+        -webkit-box-shadow: 0 0 0 1000px #0d3b4f inset !important;
+        -webkit-text-fill-color: #ffffff !important;
+        color: #ffffff !important;
+        caret-color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.42);
+      }
+
+      .login-page input.form-control::placeholder {
+        color: rgba(255, 255, 255, 0.72) !important;
+      }
+
+      .login-page input.form-control:focus {
+        border-color: #7be0c3;
+        box-shadow: 0 0 0 0.2rem rgba(123, 224, 195, 0.2);
+      }
+
       .login-btn {
         width: 100%;
         border-radius: 12px;
         padding: 0.9rem 1rem;
         font-weight: 600;
-        background: linear-gradient(135deg, #0d3b4f, #1b7f95);
+        background: var(--button-background);
         border: none;
       }
 
       .login-btn:hover {
-        background: linear-gradient(135deg, #0b2f3f, #166d88);
+        background: var(--button-background-hover);
       }
 
       .form-check-label,
       .muted-link,
       .back-link {
-        color: #5d6d7d;
+        color: #ffffff;
         text-decoration: none;
       }
 
       .muted-link:hover,
       .back-link:hover {
-        color: #0d3b4f;
+        color: #ffffff;
       }
 
       @media (max-width: 767px) {
@@ -200,7 +226,6 @@
               <label for="email" class="form-label">Email address</label>
               <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required />
             </div>
-
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required />

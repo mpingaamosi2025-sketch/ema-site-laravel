@@ -6,7 +6,11 @@ use App\Models\Page;
 use App\Models\Service;
 use App\Models\SiteSetting;
 use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
 class AdminCmsTest extends TestCase
@@ -32,6 +36,43 @@ class AdminCmsTest extends TestCase
             'email' => $user->email,
             'password' => 'admin123',
         ])->assertRedirect('/admin/dashboard');
+    }
+
+    public function test_admin_can_request_and_complete_password_reset(): void
+    {
+        Notification::fake();
+        $user = User::factory()->create(['email' => 'admin@example.com', 'is_admin' => true]);
+
+        $this->post('/forgotpassword', ['email' => $user->email])
+            ->assertRedirect()
+            ->assertSessionHas('status');
+        Notification::assertSentTo($user, ResetPassword::class);
+
+        $token = Password::broker()->createToken($user);
+
+        $this->get('/reset-password/'.$token.'?email='.urlencode($user->email))
+            ->assertOk()
+            ->assertSee('Create a new password');
+
+        $this->post('/reset-password', [
+            'token' => $token,
+            'email' => $user->email,
+            'password' => 'new-admin-password',
+            'password_confirmation' => 'new-admin-password',
+        ])->assertRedirect('/login');
+
+        $this->assertTrue(Hash::check('new-admin-password', $user->fresh()->password));
+    }
+
+    public function test_non_admin_cannot_request_a_password_reset(): void
+    {
+        $user = User::factory()->create(['email' => 'user@example.com', 'is_admin' => false]);
+
+        $this->post('/forgotpassword', ['email' => $user->email])
+            ->assertRedirect()
+            ->assertSessionHas('status');
+
+        $this->assertDatabaseCount('password_reset_tokens', 0);
     }
 
     public function test_legacy_public_login_post_also_redirects_admin_to_dashboard(): void

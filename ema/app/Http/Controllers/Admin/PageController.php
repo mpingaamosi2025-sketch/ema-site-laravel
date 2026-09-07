@@ -34,6 +34,7 @@ class PageController extends Controller
             $validated = $request->validate([
                 'selector' => ['required', 'string', 'max:1000'],
                 'text' => ['nullable', 'string'],
+                'placeholder' => ['nullable', 'string', 'max:255'],
                 'image' => ['nullable', 'image', 'max:5120'],
                 'background_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
                 'text_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
@@ -48,7 +49,7 @@ class PageController extends Controller
                 }
                 $override['image_path'] = $request->file('image')->store('pages/'.$page->slug.'/visual', 'public');
             }
-            foreach (['text', 'background_color', 'text_color'] as $property) {
+            foreach (['text', 'placeholder', 'background_color', 'text_color'] as $property) {
                 if ($request->has($property)) {
                     $override[$property] = $validated[$property] ?? '';
                 }
