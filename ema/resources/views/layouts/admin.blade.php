@@ -89,6 +89,17 @@
             box-shadow: inset 3px 0 var(--admin-cyan);
         }
 
+        .sidebar .nav-link.logout-link {
+            background: rgba(220, 88, 88, .18);
+            color: #ffe2e2;
+        }
+
+        .sidebar .nav-link.logout-link:hover {
+            background: #c94f5b;
+            color: #fff;
+            transform: translateX(3px);
+        }
+
         .content-area {
             padding: clamp(1rem, 3vw, 2.5rem);
         }
@@ -190,7 +201,7 @@
                     <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}"><i class="bi bi-briefcase me-2"></i>Services</a>
                     <a class="nav-link {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{ route('admin.profile') }}"><i class="bi bi-person me-2"></i>Profile</a>
                     <a class="nav-link {{ request()->routeIs('admin.change-password') ? 'active' : '' }}" href="{{ route('admin.change-password') }}"><i class="bi bi-shield-lock me-2"></i>Password</a>
-                    <form action="{{ route('admin.logout') }}" method="POST" class="mt-2">@csrf<button class="nav-link border-0 bg-transparent w-100 text-start"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></form>
+                    <form action="{{ route('admin.logout') }}" method="POST" class="mt-2">@csrf<button class="nav-link logout-link border-0 w-100 text-start"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></form>
                 </nav>
             </aside>
             <main class="col-lg-10 content-area">

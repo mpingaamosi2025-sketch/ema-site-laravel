@@ -49,6 +49,8 @@ Route::middleware([EnsureAdmin::class])->prefix('admin')->name('admin.')->group(
     Route::put('/pages/{page}', [AdminPageController::class, 'update'])->name('pages.update');
     Route::post('/pages/{page}/visual', [AdminPageController::class, 'updateVisual'])->name('pages.visual.update');
     Route::post('/settings', [DashboardController::class, 'updateSettings'])->name('settings.update');
+    Route::post('/messages/{clientMessage}/reply', [DashboardController::class, 'replyToMessage'])->name('messages.reply');
+    Route::delete('/messages/{clientMessage}', [DashboardController::class, 'deleteMessage'])->name('messages.delete');
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::post('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
     Route::get('/change-password', [DashboardController::class, 'changePassword'])->name('change-password');

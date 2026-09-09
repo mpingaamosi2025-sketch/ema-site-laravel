@@ -48,7 +48,9 @@
     <main class="main">
       <section id="hero" class="hero section">
         <div class="hero-bg">
-          <img id="hero-service-image" data-cms-key="page.home.image" src="{{ asset('assets/img/logistic.jpg') }}" alt="EMA Fleet and logistics software" />
+          <div class="hero-image-frame">
+            <img id="hero-service-image" data-cms-key="page.home.image" src="{{ asset('assets/img/logistic.jpg') }}" alt="EMA Fleet and logistics software" />
+          </div>
         </div>
         <div class="container">
           <div class="hero-content">
@@ -120,7 +122,6 @@
               <h2>Let's build the right solution for you.</h2>
               <p>Talk to our experts and discover how EMASUITE can help your business grow.</p>
             </div>
-            <a href="{{ route('contact') }}" class="btn-get-started">Request a Demo <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </section>
@@ -199,9 +200,9 @@
                 <h3>Built for real business challenges</h3>
                 <p>From stock control to dispatch and reporting, EMA gives teams a practical, flexible, and secure operating system.</p>
                 <ul>
-                  <li><i class="bi bi-easel flex-shrink-0"></i> Manage core operations in a single platform.</li>
-                  <li><i class="bi bi-patch-check flex-shrink-0"></i> Improve visibility and reduce manual delays.</li>
-                  <li><i class="bi bi-brightness-high flex-shrink-0"></i> Scale as your business grows.</li>
+                  <li><i class="bi bi-easel shrink-0"></i> Manage core operations in a single platform.</li>
+                  <li><i class="bi bi-patch-check shrink-0"></i> Improve visibility and reduce manual delays.</li>
+                  <li><i class="bi bi-brightness-high shrink-0"></i> Scale as your business grows.</li>
                 </ul>
                 <a href="{{ route('about') }}" class="btn more-btn">Learn More</a>
               </div>
@@ -300,7 +301,7 @@
 
               <div class="row">
                 <div class="col-lg-6 icon-box d-flex">
-                  <i class="bi bi-easel flex-shrink-0"></i>
+                  <i class="bi bi-easel shrink-0"></i>
                   <div>
                     <h4>Flexible Modules</h4>
                     <p>Start with what you need and scale as your business grows.</p>
@@ -308,7 +309,7 @@
                 </div>
 
                 <div class="col-lg-6 icon-box d-flex">
-                  <i class="bi bi-patch-check flex-shrink-0"></i>
+                  <i class="bi bi-patch-check shrink-0"></i>
                   <div>
                     <h4>Secure Platform</h4>
                     <p>Protect your data and critical business processes with trusted security.</p>
@@ -316,7 +317,7 @@
                 </div>
 
                 <div class="col-lg-6 icon-box d-flex">
-                  <i class="bi bi-brightness-high flex-shrink-0"></i>
+                  <i class="bi bi-brightness-high shrink-0"></i>
                   <div>
                     <h4>Fast ROI</h4>
                     <p>Improve workflow accuracy, speed, and visibility with quicker returns.</p>
@@ -324,7 +325,7 @@
                 </div>
 
                 <div class="col-lg-6 icon-box d-flex">
-                  <i class="bi bi-brightness-high flex-shrink-0"></i>
+                  <i class="bi bi-brightness-high shrink-0"></i>
                   <div>
                     <h4>Simple Control</h4>
                     <p>Keep teams aligned with clear business data and reporting tools.</p>
@@ -478,6 +479,7 @@
 
             <div class="col-lg-6">
               <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
+                @csrf
                 <div class="row gy-4">
                   <div class="col-md-6"><input type="text" name="name" class="form-control" placeholder="Your Name" required="" /></div>
                   <div class="col-md-6"><input type="email" class="form-control" name="email" placeholder="Your Email" required="" /></div>
@@ -572,27 +574,27 @@
           {
             title: 'EMA Fleet & Logistics',
             description: 'Manage trucks, cargo movements, fuel, maintenance, and delivery operations in one connected platform.',
-            image: @json(asset('assets/img/logistic.jpg'))
+            image: "{{ asset('assets/img/ema_logistics.jpg') }}"
           },
           {
             title: 'EMA Warehouse',
             description: 'Control receiving, stock movement, dispatch, and inventory accuracy with real-time warehouse visibility.',
-            image: @json(asset('assets/img/industries.png'))
+            image: "{{ asset('assets/img/ema_warehouse_2.jpg') }}"
           },
           {
             title: 'EMA Accounting',
             description: 'Track bills, invoices, payments, and financial reports with accounting tools built for growing businesses.',
-            image: @json(asset('assets/img/fastroi.jpg'))
+            image: "{{ asset('assets/img/fastroi.jpg') }}"
           },
           {
             title: 'EMA Inventory',
             description: 'Gain full control of goods across stores and supply networks while improving service levels and working capital.',
-            image: @json(asset('assets/img/business.jpg'))
+            image: "{{ asset('assets/img/business.jpg') }}"
           },
           {
             title: 'EMA HR & Payroll',
             description: 'Automate employee earnings, deductions, attendance, and statutory payroll reporting for your team.',
-            image: @json(asset('assets/img/hrsoftware.jpg'))
+            image: "{{ asset('assets/img/hr_ema_1.jpg') }}"
           }
         ];
         let activeService = 0;

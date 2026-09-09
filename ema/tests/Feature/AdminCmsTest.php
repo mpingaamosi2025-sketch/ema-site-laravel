@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Mail\ClientMessageReply;
+use App\Models\ClientMessage;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\SiteSetting;
@@ -9,6 +11,7 @@ use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
@@ -98,6 +101,81 @@ class AdminCmsTest extends TestCase
         $this->actingAs($user)
             ->get('/admin/login')
             ->assertRedirect('/admin/dashboard');
+    }
+
+    public function test_logout_invalidates_session_and_protected_pages_are_not_cached(): void
+    {
+        $user = User::factory()->create(['is_admin' => true]);
+
+        $dashboardResponse = $this->actingAs($user)->get('/admin/dashboard');
+
+        $dashboardResponse->assertOk();
+        $this->assertStringContainsString('no-store', $dashboardResponse->headers->get('Cache-Control'));
+
+        $this->post('/admin/logout')
+            ->assertRedirect('/admin/login');
+
+        $this->assertGuest();
+
+        $this->get('/admin/dashboard')
+            ->assertRedirect('/admin/login');
+    }
+
+    public function test_client_message_is_saved_and_visible_to_admin(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+
+        $this->post('/forms/contact.php', [
+            'name' => 'Client Name',
+            'email' => 'client@example.com',
+            'subject' => 'Need a product demo',
+            'message' => 'Please contact me about the logistics solution.',
+        ])->assertOk()->assertSee('OK');
+
+        $this->assertDatabaseHas('client_messages', [
+            'email' => 'client@example.com',
+            'subject' => 'Need a product demo',
+        ]);
+
+        $this->actingAs($admin)
+            ->get('/admin/dashboard')
+            ->assertOk()
+            ->assertSee('Client messages')
+            ->assertSee('Need a product demo')
+            ->assertSee('client@example.com')
+            ->assertSee('Reply')
+            ->assertSee('reply-form-'.$this->getClientMessageId('client@example.com'))
+            ->assertSee('Send reply')
+            ->assertSee('Please contact me about the logistics solution.');
+    }
+
+    public function test_admin_can_send_a_reply_to_a_client_message(): void
+    {
+        Mail::fake();
+        $admin = User::factory()->create(['is_admin' => true]);
+        $clientMessage = ClientMessage::create([
+            'name' => 'Client Name',
+            'email' => 'client@example.com',
+            'subject' => 'Need a product demo',
+            'message' => 'Please contact me about the logistics solution.',
+        ]);
+
+        $this->actingAs($admin)
+            ->post(route('admin.messages.reply', $clientMessage), [
+                'reply' => 'Thanks for reaching out. Our team will contact you shortly.',
+            ])
+            ->assertRedirect(route('admin.dashboard'))
+            ->assertSessionHas('success', 'Reply sent to client@example.com.');
+
+        Mail::assertSent(ClientMessageReply::class, function (ClientMessageReply $mail) use ($clientMessage): bool {
+            return $mail->clientMessage->is($clientMessage)
+                && $mail->reply === 'Thanks for reaching out. Our team will contact you shortly.';
+        });
+    }
+
+    private function getClientMessageId(string $email): int
+    {
+        return ClientMessage::query()->where('email', $email)->value('id');
     }
 
     public function test_admin_can_manage_custom_page_sections(): void

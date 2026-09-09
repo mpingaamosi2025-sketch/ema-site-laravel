@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ClientMessageReply;
+use App\Models\ClientMessage;
 use App\Models\Service;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class DashboardController extends Controller
 {
@@ -14,8 +17,9 @@ class DashboardController extends Controller
     {
         $settings = SiteSetting::asArray();
         $services = Service::orderBy('sort_order')->get();
+        $clientMessages = ClientMessage::query()->latest()->get();
 
-        return view('admin.dashboard', compact('settings', 'services'));
+        return view('admin.dashboard', compact('settings', 'services', 'clientMessages'));
     }
 
     public function updateSettings(Request $request)
@@ -50,6 +54,24 @@ class DashboardController extends Controller
         }
 
         return redirect()->route('admin.dashboard')->with('success', 'Website content updated successfully.');
+    }
+
+    public function deleteMessage(ClientMessage $clientMessage)
+    {
+        $clientMessage->delete();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Client message deleted successfully.');
+    }
+
+    public function replyToMessage(Request $request, ClientMessage $clientMessage)
+    {
+        $validated = $request->validate([
+            'reply' => ['required', 'string', 'max:10000'],
+        ]);
+
+        Mail::to($clientMessage->email)->send(new ClientMessageReply($clientMessage, $validated['reply']));
+
+        return redirect()->route('admin.dashboard')->with('success', 'Reply sent to '.$clientMessage->email.'.');
     }
 
     public function profile()

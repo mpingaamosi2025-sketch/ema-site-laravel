@@ -2832,8 +2832,44 @@ body {
   background: #062b3a;
 }
 
+.index-page .hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.index-page .hero .hero-image-frame {
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  top: 85px;
+  right: -70px;
+  overflow: hidden;
+  border-radius: 42% 58% 58% 42%;
+  transform: rotate(24deg);
+  z-index: 1;
+}
+
 .index-page .hero .hero-bg::before {
   background: linear-gradient(90deg, rgba(3, 35, 49, 0.96) 0%, rgba(3, 35, 49, 0.82) 42%, rgba(3, 35, 49, 0.28) 100%);
+}
+
+.index-page .hero .hero-image-frame img {
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 767px) {
+  .index-page .hero .hero-image-frame {
+    width: 390px;
+    height: 390px;
+    top: 120px;
+    right: -145px;
+  }
 }
 
 .index-page .hero-content {
@@ -3043,6 +3079,21 @@ body {
   border-color: rgba(18, 63, 80, 0.12);
 }
 
+.index-page #contact .php-email-form input,
+.index-page #contact .php-email-form textarea {
+  color: #17334a !important;
+  background: #ffffff !important;
+  caret-color: #17334a;
+  -webkit-text-fill-color: #17334a;
+}
+
+.index-page #contact .php-email-form input:-webkit-autofill,
+.index-page #contact .php-email-form input:-webkit-autofill:hover,
+.index-page #contact .php-email-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #17334a;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+}
+
 @media (max-width: 767px) {
   .index-page .hero {
     min-height: 620px;
@@ -3133,6 +3184,14 @@ body {
   object-fit: contain;
   object-position: center right;
   z-index: 1;
+}
+
+.index-page .hero .hero-image-frame #hero-service-image {
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .index-page .hero .hero-bg::before {
@@ -3555,9 +3614,18 @@ body {
 
 .contact-page #contact .php-email-form input,
 .contact-page #contact .php-email-form textarea {
-  color: #17334a;
-  background: #ffffff;
+  color: #17334a !important;
+  background: #ffffff !important;
   border-color: rgba(13, 48, 69, 0.16);
+  caret-color: #17334a;
+  -webkit-text-fill-color: #17334a;
+}
+
+.contact-page #contact .php-email-form input:-webkit-autofill,
+.contact-page #contact .php-email-form input:-webkit-autofill:hover,
+.contact-page #contact .php-email-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #17334a;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
 }
 
 .contact-page #contact .php-email-form input::placeholder,

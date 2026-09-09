@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClientMessage;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\SiteSetting;
@@ -61,12 +62,14 @@ class PageController extends Controller
 
     public function contactForm(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'subject' => 'required|string',
-            'message' => 'required|string',
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'subject' => ['required', 'string', 'max:255'],
+            'message' => ['required', 'string'],
         ]);
+
+        ClientMessage::create($validated);
 
         return response('OK');
     }

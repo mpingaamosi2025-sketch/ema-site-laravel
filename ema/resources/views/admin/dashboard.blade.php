@@ -39,6 +39,27 @@
             background: transparent;
         }
 
+        #client-messages .client-messages-list {
+            max-height: 26rem;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(56, 141, 168, 0.55) transparent;
+        }
+
+        #client-messages .client-messages-list::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        #client-messages .client-messages-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #client-messages .client-messages-list::-webkit-scrollbar-thumb {
+            background: rgba(56, 141, 168, 0.55);
+            border-radius: 8px;
+        }
+
         .sidebar::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.35);
             border-radius: 8px;
@@ -55,6 +76,17 @@
         .sidebar .nav-link.active {
             background: rgba(255, 255, 255, 0.08);
             color: #fff;
+        }
+
+        .sidebar .nav-link.logout-link {
+            background: rgba(220, 88, 88, 0.18);
+            color: #ffe2e2;
+        }
+
+        .sidebar .nav-link.logout-link:hover {
+            background: #c94f5b;
+            color: #fff;
+            transform: translateX(3px);
         }
 
         .content-area {
@@ -227,7 +259,7 @@
                     <a class="nav-link" href="{{ route('admin.services.index') }}"><i class="bi bi-briefcase me-2"></i>Manage services</a>
                     <a class="nav-link" href="{{ route('admin.profile') }}"><i class="bi bi-person me-2"></i>Profile</a>
                     <a class="nav-link" href="{{ route('admin.change-password') }}"><i class="bi bi-shield-lock me-2"></i>Change Password</a>
-                    <a class="nav-link" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+                    <a class="nav-link logout-link" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
@@ -272,6 +304,66 @@
                             <div class="text-muted small">Last Updated</div>
                             <div class="fs-6 fw-bold">{{ now()->format('M d, Y') }}</div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="card p-4 mb-4" id="client-messages">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h4 class="mb-1">Client messages</h4>
+                            <p class="text-muted mb-0">Messages submitted through the website contact form.</p>
+                        </div>
+                        <span class="badge text-bg-light">{{ $clientMessages->count() }} total</span>
+                    </div>
+
+                    <div class="client-messages-list">
+                        @forelse($clientMessages as $clientMessage)
+                            <article class="border-top py-3">
+                                <div class="d-flex flex-wrap justify-content-between gap-2">
+                                    <div>
+                                        <h5 class="mb-1">{{ $clientMessage->subject }}</h5>
+                                        <div class="text-muted small">
+                                            {{ $clientMessage->name }} &middot;
+                                            <a href="mailto:{{ $clientMessage->email }}">{{ $clientMessage->email }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <time class="text-muted small" datetime="{{ $clientMessage->created_at->toISOString() }}">
+                                            {{ $clientMessage->created_at->format('M d, Y g:i A') }}
+                                        </time>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" data-reply-toggle="reply-form-{{ $clientMessage->id }}" aria-expanded="false">
+                                            <i class="bi bi-reply me-1"></i> Reply
+                                        </button>
+                                        <form method="POST" action="{{ route('admin.messages.delete', $clientMessage) }}" onsubmit="return confirm('Delete this client message?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash me-1"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <p class="mb-0 mt-2" style="white-space: pre-line;">{{ $clientMessage->message }}</p>
+                                <div id="reply-form-{{ $clientMessage->id }}" class="border rounded p-3 mt-3 bg-light" hidden>
+                                    <form method="POST" action="{{ route('admin.messages.reply', $clientMessage) }}">
+                                        @csrf
+                                        <label for="reply-{{ $clientMessage->id }}" class="form-label">Reply to {{ $clientMessage->name }}</label>
+                                        <textarea id="reply-{{ $clientMessage->id }}" name="reply" class="form-control" rows="4" required placeholder="Write your reply..."></textarea>
+                                        <div class="d-flex justify-content-end gap-2 mt-2">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-reply-close="reply-form-{{ $clientMessage->id }}">Cancel</button>
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <i class="bi bi-send me-1"></i> Send reply
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </article>
+                        @empty
+                            <div class="empty-state text-center">
+                                <i class="bi bi-inbox fs-2 text-muted"></i>
+                                <p class="mb-0 mt-2 text-muted">No client messages yet.</p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
 
@@ -364,6 +456,30 @@
 </body>
 
     <script>
+        document.querySelectorAll('[data-reply-toggle]').forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                const replyForm = document.getElementById(toggle.dataset.replyToggle);
+                const isOpen = !replyForm.hidden;
+
+                replyForm.hidden = isOpen;
+                toggle.setAttribute('aria-expanded', String(!isOpen));
+
+                if (!isOpen) {
+                    replyForm.querySelector('textarea').focus();
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-reply-close]').forEach((closeButton) => {
+            closeButton.addEventListener('click', () => {
+                const replyForm = document.getElementById(closeButton.dataset.replyClose);
+                const toggle = document.querySelector(`[data-reply-toggle="${closeButton.dataset.replyClose}"]`);
+
+                replyForm.hidden = true;
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
         window.setTimeout(() => {
             document.querySelectorAll('.session-flash').forEach((message) => {
                 message.classList.add('is-dismissing');
