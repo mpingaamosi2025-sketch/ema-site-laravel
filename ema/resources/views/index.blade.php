@@ -6,6 +6,7 @@
     <title>Emasuite</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon" />
 
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
